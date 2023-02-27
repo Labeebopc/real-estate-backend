@@ -8,7 +8,7 @@ const objectId = Schema.Types.objectId;
 
 
 const UserSchema = new Schema({
-    name: { type: String, required: [true, "Please provide a name"] },
+    email: { type: String, required: [true, "Please provide an email"] },
 
     password: { type: String, required: true, minlength: 6, select: false },
 
