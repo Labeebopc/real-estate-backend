@@ -11,7 +11,9 @@ const GeneralInfoSchema = new Schema({
     saleType: { type: String },
     featuredPackage: { type: Boolean },
     ppdPackage: { type: String },
-    image: null
+    // image: null
 })
 
-const GeneralInfo = mongoose.Model("GeneralInfo", GeneralInfoSchema)
+ const GeneralInfo = mongoose.model("GeneralInfo", GeneralInfoSchema)
+
+ module.exports= GeneralInfo

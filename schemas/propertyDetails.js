@@ -7,7 +7,7 @@ const PropertyDetailsSchema = new Schema({
     length: { type: Number, required: true },
     breadth: { type: Number, required: true },
     totalArea: { type: Number, required: true },
-    areaUnit: { type: Number, required: true },
+    areaUnit: { type: String, required: true },
     noOfBHK: { type: Number, required: true },
     noOfFloors: { type: Number, required: true },
     attached: { type: Boolean },
@@ -19,4 +19,6 @@ const PropertyDetailsSchema = new Schema({
     facing: { type: String }
 })
 
-const PropertyDetails = mongoose.Model("PropertyDetails", PropertyDetailsSchema)
+const PropertyDetails = mongoose.model("PropertyDetails", PropertyDetailsSchema)
+
+module.exports=PropertyDetails
