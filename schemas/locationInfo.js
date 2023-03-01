@@ -3,13 +3,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const LocationInfoSchema = new Schema({
-    email: {
-        type: String,
-        trim: true,
-        unique: true,
-        required: 'Email address is required',
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-    },
+    // email: {
+    //     type: String,
+    //     trim: true,
+    //     unique: true,
+    //     required: 'Email address is required',
+    //     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    // },
+
+    email: { type: String, unique: true, required: 'Email address is required' },
     city: { type: String },
     area: { type: String, require: true },
     pincode: { type: Number },
@@ -20,4 +22,6 @@ const LocationInfoSchema = new Schema({
 })
 
 
-const LocationInfo = mongoose.Model("LocationInfo", LocationInfoSchema)
+const LocationInfo = mongoose.model("LocationInfo", LocationInfoSchema)
+
+module.exports = LocationInfo

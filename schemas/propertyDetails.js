@@ -19,4 +19,6 @@ const PropertyDetailsSchema = new Schema({
     facing: { type: String }
 })
 
-const PropertyDetails = mongoose.Model("PropertyDetails", PropertyDetailsSchema)
+const PropertyDetails = mongoose.model("PropertyDetails", PropertyDetailsSchema)
+
+module.exports=PropertyDetails

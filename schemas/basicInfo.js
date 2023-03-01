@@ -17,4 +17,5 @@ const BasicInfoSchema = new Schema({
     bankLoan: { type: Boolean }
 })
 
-const BasicInfo = mongoose.Model("BasicInfo", BasicInfoSchema)
+ const BasicInfo = mongoose.model("BasicInfo", BasicInfoSchema)
+ module.exports = BasicInfo
