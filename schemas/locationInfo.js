@@ -11,9 +11,9 @@ const LocationInfoSchema = new Schema({
     //     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     // },
 
-    email: { type: String, unique: true, required: 'Email address is required' },
+    email: { type: String, required: 'Email address is required' },
     city: { type: String },
-    area: { type: String, require: true },
+    area: { type: String, required: true },
     pincode: { type: Number },
     address: { type: String },// need to check whether the address is stored in separated by comma
     landmark: { type: String },

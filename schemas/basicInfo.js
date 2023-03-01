@@ -14,7 +14,11 @@ const BasicInfoSchema = new Schema({
     propertyAge: { type: Number },
     propertyApproved: { type: Boolean },
     propertyDescription: { type: String },
-    bankLoan: { type: Boolean }
+    bankLoan: { type: Boolean },
+    ppdId: {type:String},
+    views: { type:Number},
+    daysLeft:{ type:Number},
+    
 })
 
  const BasicInfo = mongoose.model("BasicInfo", BasicInfoSchema)
