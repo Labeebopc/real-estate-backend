@@ -1,12 +1,17 @@
 const mongoose = require("mongoose");
 
-const generalInfo = mongoose.Schema({
-    name:{type:String,require:true},
-    mobileNumber:{type:Number,require:true},
-    postedBy:{type:String},
-    saleType:{type:String},
-    FeaturedPackage:{type:String},
-    ppdPackage:{type:String}
+const Schema = mongoose.Schema;
+
+
+const GeneralInfoSchema = new Schema({
+
+    name: { type: String, required: true },
+    mobile: { type: Number, required: true },
+    postedBy: { type: String },
+    saleType: { type: String },
+    featuredPackage: { type: Boolean },
+    ppdPackage: { type: String },
+    image: null
 })
 
-const OwnerInfo = mongoose.Model("OwnerInfo",generalInfo)
+const GeneralInfo = mongoose.Model("GeneralInfo", GeneralInfoSchema)
