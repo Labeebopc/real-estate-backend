@@ -1,17 +1,31 @@
-const mongoose= require("mongoose");
+
+
+const mongoose = require("mongoose")
 
 
 
-const basicInfo = mongoose.Schema({
-    propertyType:{type:String,require:true},
-    negotable:{type:String,require:true},
-    price:{type:Number,require:true},
-    ownership:{type:String,require:true},
-    propertyAge:{type:Number,require:true},
-    propertyApproved:{type:String,require:true},
-    propertyDescription:{type:String},
-    bankloan:{type:String,require:true}
+const Schema = mongoose.Schema;
+//const objectId = Schema.objectId;
+
+
+const BasicInfoSchema = new Schema({
+
+    propertyType: { type: String, required: true },
+    negotiable: { type: Boolean },
+    price: { type: Number },
+    ownership: { type: String },
+    propertyAge: { type: Number },
+    propertyApproved: { type: Boolean },
+    propertyDescription: { type: String },
+    bankLoan: { type: Boolean },
+    ppdId: {type:String},
+    views: { type:Number},
+    daysLeft:{ type:Number},
+    
 })
 
-const BasicInfo = mongoose.model("BasicInfo",basicInfo)
-module.exports = BasicInfo;
+
+
+ const BasicInfo = mongoose.model("BasicInfo", BasicInfoSchema)
+ module.exports = BasicInfo
+

@@ -6,11 +6,17 @@ const Login = require("./schemas/loginSchema.js")
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const mongoose = require("mongoose");
+const bodyParser= require('body-parser')
 mongoose.set('strictQuery', true)
+
 const BasicInfo = require("./schemas/basicInfo.js")
+const propertyRouter = require('./routes/PropertyRoutes.js')
+
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.use(bodyParser.json({extended: true}))
 app.use(
     cors({
       origin: ["http://localhost:3000"],
@@ -18,7 +24,10 @@ app.use(
       credentials: true,
     })
   );
-app.use(express.urlencoded({extended: true}))
+
+  // For posting new property
+app.use('/api/v1/addnewproperty', propertyRouter)
+
 
 // mongo connection to mongo atlas
 const uri = `mongodb+srv://Divyasree:divyasree@login.xoamhd7.mongodb.net/?retryWrites=true&w=majority`
@@ -132,7 +141,6 @@ app.get("/propertyDetails/:id",async (req,res)=>{
     }
 
 })
-
 
 
 app.listen(8080,()=>{
