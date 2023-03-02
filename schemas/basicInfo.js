@@ -1,4 +1,7 @@
+
+
 const mongoose = require("mongoose")
+
 
 
 const Schema = mongoose.Schema;
@@ -21,5 +24,8 @@ const BasicInfoSchema = new Schema({
     
 })
 
+
+
  const BasicInfo = mongoose.model("BasicInfo", BasicInfoSchema)
  module.exports = BasicInfo
+

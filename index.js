@@ -1,11 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+const login = require("./routes/login.js");
+// const PropertyDetails = require("./routes/PropertyDetails.js")
+const Login = require("./schemas/loginSchema.js")
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const mongoose = require("mongoose");
 const bodyParser= require('body-parser')
 mongoose.set('strictQuery', true)
-const Login = require("./schemas/loginSchema.js")
+
+const BasicInfo = require("./schemas/basicInfo.js")
 const propertyRouter = require('./routes/PropertyRoutes.js')
 
 
@@ -40,13 +44,13 @@ mongoose.connect(uri,(err)=>{
 
 
 //Singing up a new user
-app.post("/", 
+app.post("/signUp", 
     //validating the data that entered which is a middleware i.e express validator
-    body("email").isEmail(),
-    body("password").isLength({min:6,max:15}),
+    body("data.email").isEmail(),
+    body("data.password").isLength({min:6,max:15}),
     async(req,res)=>{
-        console.log(req.body)
-        const {email,password} = req.body
+        // console.log(req.body)
+        const {email,password} = req.body.data
         console.log(email,password)
         // res.send("ok")
     try{
@@ -59,17 +63,17 @@ app.post("/",
         const user = await Login.findOne({email});
         console.log(user)
         if(user){
-            return res.send({
+            return res.status(400).send({
                 message:"User already exists"
             })
         }
         // creating new user in database
         //using bcryp for securing the password enetered i.e hashing
-        else{bcrypt.hash(password, 10,async function(err, hash) {
+        bcrypt.hash(password, 10,async function(err, hash) {
             // Store hash in your password DB.
             if(err){
                 return res.send({
-                    message:failed
+                    message:err.message
                 })
             }
 
@@ -84,7 +88,7 @@ app.post("/",
         catch(e){
             res.send({message:e.message})
         }
-    })};
+    });
 }
 catch(e){
         res.json({message:e.message})
@@ -92,45 +96,51 @@ catch(e){
 })
 
 //login for already existing user
+app.use("/",login)
 
-app.post("/login", 
-    //validating the data that entered which is a middleware i.e express validator
-    body("formData.email").isEmail(),
-    async(req,res)=>{
-        console.log(req.body.formData)
-        const {email,password} = req.body.formData
-        console.log(email,password)
-    try{
-        const errors = validationResult(req);
-        if(!errors.isEmpty()){
-            return res.status(400).json({err:errors.array()})
-        }
-        //Check if username already exists
-        const user = await Login.findOne({email});
-        console.log(user)
-        if(!user){
-            return res.status(400).json({
-                message:"user not found please signup to login"
-            })
-        }
-        bcrypt.compare(password, user.password, function(err, result) {
-            // result == true
-            if(result){
-                res.json({
-                    message:"successfully logged in"
-                })
-            }
-        });
+app.get('/signout', async (req, res) => {
+    try {
 
-    }
-    catch(e){
-        res.json({message:e.message})
+        res.status(200)
+        .cookie("token", null, {expires: new Date(Date.now()), httpOnly: true})
+        .json({
+            success: true,
+            massage: "sign Out",
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            massage: error.message,
+        })
     }
 })
 
+app.get("/propertydetails",async(req,res)=>{
+    // res.send("ok")
+    try{
+        const basicinfo= await BasicInfo.find().sort({_id:-1});
+        res.json(basicinfo)
+    }
+    catch(err){
+        res.status(400).json({
+            message:err.message,
+        })
+    }
+})
 
+app.get("/propertyDetails/:id",async (req,res)=>{
+    try{
+        const basicInfo = await BasicInfo.findOne({ppdId:req.params.id}).sort({_id:-1})
+        res.json(basicInfo)
+    }
+    catch(err){
+        res.json({
+            message:err.message
+        })
+    }
 
-
+})
 
 
 app.listen(8080,()=>{
@@ -138,3 +148,16 @@ app.listen(8080,()=>{
 })
 
 
+// _id": "64004840779cf66f0151d6fc",
+// "propertyType": "flat",
+// "negotiable": false,
+// "price": 0,
+// "ownership": "",
+// "propertyAge": 0,
+// "propertyApproved": "false",
+// "propertyDescription": "",
+// "bankLoan": false,
+// "ppdId": "PPID2058",
+// "views": 0,
+// "daysLeft": 1,
+// "__v": 0
