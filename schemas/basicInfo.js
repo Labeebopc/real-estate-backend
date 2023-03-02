@@ -1,5 +1,4 @@
-const { default: mongoose } = require("mongoose");
-const schema = require("mongoose");
+const mongoose= require("mongoose");
 
 
 
@@ -14,4 +13,5 @@ const basicInfo = mongoose.Schema({
     bankloan:{type:String,require:true}
 })
 
-const BasicInfo = mongoose.Model("BasicInfo",basicInfo)
+const BasicInfo = mongoose.model("BasicInfo",basicInfo)
+module.exports = BasicInfo;
