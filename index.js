@@ -129,7 +129,7 @@ app.get("/propertydetails",async(req,res)=>{
     }
 })
 
-app.get("/propertyDetails/:id",async (req,res)=>{
+app.get("/propertyDetails/:id", async (req,res)=>{
     try{
         const basicInfo = await BasicInfo.findOne({ppdId:req.params.id}).sort({_id:-1})
         res.json(basicInfo)
