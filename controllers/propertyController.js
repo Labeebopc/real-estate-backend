@@ -16,7 +16,7 @@ const createProperty = async (req, res) => {
 
     // console.log("Data-1", req.body.data[0].current);
     // console.log("Data-2",req.body.data[1].current);
-     console.log("Data-3",req.body.data[2].current);
+     //console.log("Data-3",req.body.data[2].current);
     // console.log("Data-4",req.body.data[3].current);
 
     // const { propertyType, negotiable, price, ownership, propertyAge, propertyApproved, propertyDescription, bankLoan } = req.body.data[0].current
